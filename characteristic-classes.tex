@@ -5,6 +5,7 @@
 \usepackage{tilmansdef}
 \usepackage{tikz}
 \usepackage{enumitem}
+\usepackage{mathrsfs}
 \usetikzlibrary{matrix,arrows,decorations,cd}
 
 
@@ -30,6 +31,8 @@
 \DeclareMathOperator{\chr}{char}
 \DeclareMathOperator{\SL}{SL}
 \DeclareMathOperator{\stab}{stab}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\DivCl}{DivCl}
 
 \DeclareMathOperator{\codim}{codim}
 \DeclareMathOperator{\rk}{rk}
@@ -4107,6 +4110,165 @@ Hence we have induced homomorphisms $A_kY\to A_{k+n}X$, so $A_*$ becomes a contr
  If $E$ is an algebraic vector bundle, $p^*$ is an isomorphism.
 \end{thm}
 
+
+\section{Cartier divisors and line bundles}
+\chapterauthor{Erik Lindell}
+
+From this point on we will only consider varieties, i.e. schemes that are reduced and irreducible, unless otherwise is stated. Throughout the section we view vectors bundles on a variety $X$ as locally free $\mathscr{O}_X$-module sheaves of finite rank, and in particular line bundles as such sheaves of rank 1. Our goal is to construct the algebro-geometric analogues to the Chern classes that we have already seen in topology.
+
+On a variety $X$, let $K(U)$ denote the field of fractions of the ring $\mathscr{O}_X(U)$, which is an integral domain since $X$ is assumed to be integral. Since any open $U\subset X $ is dense, it follows that $K:=K(U)=K(X)$. We call $K$ the field of \textit{rational functions} on $X$ and denote by $\mathscr{K}_X$ the constant sheaf associated to $K$. Note that at any point $x\in X$, the stalk $\mathscr{K}_{X,x}$ is equal to the fraction field $\mathrm{Frac}(\mathscr{O}_{X,x})$.
+
+Before we define Chern classes for general vector bundles, we will start with the special case of line bundles. As we will see, once the first Chern class of a line bundle is constructed, the higher Chern classes are quite straightforward to construct. The construction of the first Chern class, however, is somewhat involved and will require us to take a detour to discuss \textit{Cartier divisors}, from which we will construct this class. Cartier divisors can be defined on general schemes, but the definition for varieties is simpler and sufficient for our purposes. 
+
+\begin{dfn}
+A Cartier divisor on a variety $X$ is a global section of the sheaf $\mathscr{K}_X^\times/\mathscr{O}_X^\times$. A Cartier divisor is \textit{principal} if it comes from a global section of $\mathscr{K}_X^\times$, i.e. if it is the image in $\mathscr{K}_X^\times/\mathscr{O}_X^\times$ of such a section. Two Cartier divisors are said to be \textit{linearly equivalent} if their difference is principal.
+\end{dfn}
+
+\begin{remark}
+Such a section can be represented by giving a collection $(U_i,f_i)$, where the $U_i$ are open sets that together form an open covering of $X$, and where $f_i\in\mathscr{K}_X^\times(U_i)$, satisfying $f_i/f_j\in\mathscr{O}_X^\times(U_i\cap U_j)$ for all $i,j$. A principal Cartier divisor is thus a divisor that can be represented as $(X,f)$.
+\end{remark}
+
+The Cartier divisors of a variety $X$ is a group and on representatives the group operation can be written as $(U_i,f_i)+(V_j,g_j)=(U_i\cap V_j,f_ig_j)$. We denote this group by $\Div X$. Note that the neutral element is represented by $(X,1)$. The set of principal Cartier divisors form a normal subgroup, so we may also consider the quotient group of Cartier divisors considered up to linear equivalence. We call this the \textit{divisor class group} of $X$ and denote it $\DivCl X$.
+
+Cartier divisors are closely related to line bundles on their underlying schemes. In the case of varieties, we shall see that line bundles are in fact completely determined by Cartier divisors. To be able to state this result, recall first that the tensor product of any two line bundles is also a line bundle, and that for any line bundle $\mathscr{L}$, we have $\mathscr{L}\otimes\mathscr{O}_X\cong\mathscr{L}$. Furthermore, recall that the dual bundle of $\mathscr{L}$ is defined by $\mathscr{L}^\vee:=\sHom(\mathscr{L},\mathscr{O}_X)$. Then
+$$\mathscr{L}^\vee\otimes\mathscr{L}\cong\sHom(\mathscr{L},\mathscr{L})=\mathscr{O}_X,$$
+so the set of isomorphism classes of line bundles on a variety (and actually on any scheme) $X$ forms a group under tensor product, with $\mathscr{O}_X$ as neutral element. This is the \textit{Picard group} of $X$, denoted by $\Pic X$.
+
+We can now state the main result of this section:
+
+\begin{prop}
+Let $X$ be a variety. Then $\DivCl X\cong\Pic X$.
+\end{prop}
+
+\begin{proof} We will construct a surjective homomorphism $\mathscr{L}:\Div X\to\Pic X$, whose kernel will be the subgroup of principal Cartier divisors. For any Cartier divisor $D$, represented by $(U_i,f_i)$, we let $\mathscr{L}(D)$ be the subsheaf of $\mathscr{K}_X$ that is generated on $U_i$ by $f_i^{-1}$. By assumption $f_i/f_j$ is a unit of $\mathscr{O}_X(U_i\cap U_j)$, so $f_i^{-1}$ and $f_j^{-1}$ generate the same $\mathscr{O}_X$-module on the intersection. Furthermore, the map $\mathscr{O}_X(U_i)\to\mathscr{L}(D)(U_i)$ given by $1\mapsto f_i^{-1}$ is an isomorphism, so $\mathscr{L}(D)$ is locally free and of rank 1.
+
+To prove that this map is a homomorphism, note first that $\mathscr{L}((X,1))=\mathscr{O}_X$. Suppose now that $D$ is represented by $(U_i,f_i)$. Then $-D$ is the divisor represented by $(U_i,f_i^{-1})$. On $U_i$, $\mathcal{L}(-D)$ is then generated by $f_i$ as a $\mathscr{O}_X$-module. Thus we get an obvious map $\mathscr{L}(D)\otimes\mathscr{L}(-D)\to\mathscr{O}_X$ which maps $f_i^{-1}\otimes f_i\mapsto 1$ on $U_i$ and this map is clearly an isomorphism of sheaves.
+
+Now let $D_1$ be a divisor represented by $(U_i,f_i)$ and $D_2$ a divisor represented by $(V_j,g_j)$, so that $D_1+D_2$ is represented by $(U_i\cap V_j,f_ig_j)$. Then $\mathscr{L}(D_1+D_2)$ is generated on $U_i\cap V_j$ by $f_i^{-1}g_j^{-1}$, while $\mathscr{L}(D_1)\otimes\mathscr{L}(D_2)$ is generated by $f_i^{-1}\otimes g_j^{-1}$, so as in the previous case, there exists an obvious isomorphism $\mathscr{L}(D_1)\otimes\mathscr{L}(D_2)\to\mathscr{L}(D_1+D_2)$. Thus $\mathscr{L}$ is a group homomorphism.
+
+To prove surjectivity, we first show that any line bundle $\mathscr{L}$ on $X$ is a subsheaf of $\mathscr{K}_X$. First note that $\mathscr{L}$ is a subsheaf of $\mathscr{L}\otimes_{\mathscr{O}_X}\mathscr{K}_X$. On any locally trivializing open set $U$, we have by definition $\mathscr{L}|_U\cong\mathscr{O}_X|_U$, so $(\mathscr{L}\otimes\mathscr{K}_X)|_U\cong\mathscr{K}_X|_U$. Thus $\mathscr{L}\otimes\mathscr{K}_X$ is isomorphic to the constant sheaf $\mathscr{K}_X$, and in this way we get an embedding of $\mathscr{L}$ into $\mathscr{K}_X$. Using this embedding of $\mathscr{L}$ into $\mathscr{K}_X$, we define a Cartier divisor by taking a trivializing open cover $(U_i)$ and defining $f_i$ on $U_i$ to be inverse of a generator of $\mathscr{L}(U_i)\cong\mathscr{O}_X(U_i)$.
+
+Finally, we show that the kernel of this homomorphism is precisely the subgroup of principal divisors. If $D$ is represented by $(X,f)$, then $\mathscr{L}(D)$ is generated by $1/f$ on all of $X$. Thus the map sending $1\mapsto 1/f$ defines an isomorphism $\mathscr{O}_X\cong\mathscr{L}(D)$. Saying that $D$ is in the kernel, is the same thing as saying that such an isomorphism exists, so the subgroup of principal divisors is contained in the kernel. Conversely, if $\mathscr{L}(D)\cong\mathscr{O}_X$, i.e. if $D$ is in the kernel, then $D$ is represented by $(X,f^{-1})$, where $f$ is the image of $1\in\mathscr{O}_X(X)$ under this isomorphism.
+\end{proof}
+
+\section{The first Chern class of a line bundle}
+\chapterauthor{Erik Lindell}
+
+If $[D]$ is a Cartier divisor class of an $n$-dimensional variety $X$, there is a canonical way to associate to it a cycle class of dimension $n-1$ in $X$, i.e. an element of $A_{n-1}(X)$. Combining this with the isomorphism $\Pic X\cong\DivCl X$ from the previous section, we get a canonical way of assigning such a cycle class to a line bundle. We call this class the \textit{first Chern class} of the line bundle. 
+
+In order to make this construction explicit, we first need to define the \textit{order of vanishing} of a Cartier divisor along a subvariety of $X$. First of all, if $Y$ is a subvariety of $X$, with generic point $\eta$, we define $\mathscr{O}_{X,Y}:=\mathscr{O}_{X,\eta}$, i.e the stalk of structure sheaf at the generic point. We call this the \textit{local ring of }$X$\textit{ along }$Y$. For any $f=a/b\in\mathscr{K}_{X,\eta}=\mathrm{Frac}(\mathscr{O}_{X,Y})$, we define
+$$\ord_{\mathscr{O}_{X,Y}}(f):=\mathrm{length}_{\mathscr{O}_{X,Y}}(\mathscr{O}_{X,Y}/a)-\mathrm{length}_{\mathscr{O}_{X,Y}}(\mathscr{O}_{X,Y}/b).$$
+The assignment $f\mapsto\ord_{\mathscr{O}_{X,Y}}(f)$ is a well-defined group homomorphism $\mathrm{Frac}(\mathscr{O}_{X,Y})^\times\to\mathbb{Z}$, but since proving this would require us to take quite a detour through a number of lemmas from commutative algebra, we refer the interested reader to \cite[Appendix A]{fulton:intersection-theory}. If $a\in\mathscr{O}_{X,Y}^\times$, then of course
+$$\ord_{\mathscr{O}_{X,Y}}(a)=\mathrm{length}_{\mathscr{O}_{X,Y}}(\mathscr{O}_{X,Y}/a)=\mathrm{length}_{\mathscr{O}_{X,Y}}(0)=0,$$
+so $\mathscr{O}_{X,Y}^\times$ is contained in the kernel of this homomorphism.
+
+If $D$ is a Cartier divisor, represented by $(U_i,f_i)$, we take $i$ to be an index such that $\eta\in U_i$ and let $f$ be the germ of $f_i$ at $\eta$. Then $f$ is well-defined up to a unit of $\mathscr{O}_{X,Y}$, i.e. it does not depend on the representation $(U_i,f_i)$ or the choice of $i$. This means that the map $\ord_Y:\Div X\to\mathbb{Z}$, defined by 
+$$\ord_Y(D):=\ord_{\mathscr{O}_{X,Y}}(f),$$
+is a well-defined group homomorphism. This is called the \textit{order of vanishing} of $D$ along $Y$. If the order of vanishing is positive, we say that $D$ has a zero of the corresponding order along $Y$ and if it is negative, we say that it has a pole of the corresponding order along $Y$. 
+
+\begin{example}
+Let us illustrate why this nomenclature makes sense with a simple example. Let $X=\mathbb{A}_k^2=\mathrm{Spec}(k[x,y])$ be the affine plane over $k$, and $Y=V((x))$ be the subvariety corresponding to the ideal $(x)$, i.e. the $y$-axis $\mathrm{Spec}(k[x,y]/(x))\cong\mathrm{Spec}(k[y])$. Take $D$ to be the Cartier divisor represented by $(X,1/x^2)$. The generic point of $Y$ is simply the point $(x)$ (i.e. $(0)$ in $\mathrm{Spec}(k[x,y]/(x))$). Thus the local ring along $Y$ is $k[X,Y]_{(x)}$, which is the ring of rational functions in $x$ and $y$ with denominator not divisible by $x$. The only non-zero elements of this ring which are not units are thus the powers of $x$, which means that its only proper ideals are $(0)$, $(x)$, $(x^2)$ and so on. The order of vanishing of $D$ along $Y$ is thus
+$$\mathrm{length}_{k[X,Y]_{(x)}}(k[X,Y]_{(x)}/(1))-\mathrm{length}_{k[X,Y]_{(x)}}(k[X,Y]_{(x)}/(x^2))=-2$$
+\end{example}
+since $(0)\subseteq(x)\subseteq k[X,Y]_{(x)}/(x^2)$ is a maximal chain of ideals, which agrees with the view that $1/x^2$ has a pole of order two along the $y$-axis.
+
+\begin{prop}
+For any Cartier divisor $D$, the order of vanishing of $D$ is only nonzero along a finite number of subvarieties of codimension 1.
+\end{prop} 
+
+\begin{proof}
+We let $|D|$ denote the set of points $x$ in $X$ such that the image of $D$ in the stalk $(\mathscr{K}_X^\times/\mathscr{O}_X^\times)_x$ is not 1. If $D$ is represented by $(U_i,f_i)$ this is the set of points where $(f_i)_x$ does not belong to $\mathscr{O}_{X,x}^\times$, where $i$ is an index such that $x\in U_i$ (note that if this holds for one such $i$, it holds for them all). This set is called the \textit{support of} $D$ and is a closed subset of $X$. Note that if $\dim(\mathscr{O}_{X,x})=0$ at any point $x\in X$, then $\mathscr{O}_{X,x}$ is an integral domain with the only prime ideal being (0), which means that it is a field. Thus $\mathscr{K}_{X,x}=\mathrm{Frac}(\mathscr{O}_{X,x})=\mathscr{O}_{X,x}$, so $\mathscr{K}_{X,x}^\times/\mathscr{O}_{X,x}^\times$ is the the trivial group. Thus this point cannot belong to the support of $D$, which means that the codimension of $|D|$ in $X$ is at least 1.
+
+Next, note that if $Y$ is a subvariety of $X$ and $Y\not\subseteq|D|$, then the generic point $\eta_Y$ of $Y$ cannot be contained in $|D|$, since this is a closed set. Thus $(f_i)_{\eta_Y}$ belongs to $\mathscr{O}_{X,\eta_Y}^\times$ if $\eta_Y\in U_i$, so $\ord_Y(D)=0$. If $Y$ has codimension 1 and the order of vanishing of $D$ along $Y$ is nonzero, it must thus be an irreducible component of $|D|$. Since we assume that our varieties are noetherian, $|D|$ has a finite number of irreducible components, so the number of such subvarieties is finite.
+\end{proof}
+
+This means that we can define a map $\operatorname{cyc}:\Div X\to Z_{n-1}(X)$ by
+$$\operatorname{cyc}(D):=\sum_{Y\in Z_{n-1}}\ord_Y(D)Y,$$
+which is a group homomorphism, by the previous results. This is called the \textit{cycle class map}.
+
+Since we are considering varieties, we can now combine this with Proposition 7.3.2., to get a well-defined group homomorphism from $\Pic X\to A_{n-1}(X)$.
+
+\begin{dfn}
+Let $X$ be a variety. Then we define a group homomorphism
+$$c_1:\Pic X\cong\DivCl X\overset{\operatorname{cyc}}{\longrightarrow}A_{n-1}(X).$$
+For a vector bundle $\mathscr{L}\in\Pic X$, we call $c_1(\mathscr{L})\in A_{n-1}$ the \textit{first Chern class} of $\mathscr{L}$.
+\end{dfn}
+
+\section{The splitting construction}
+\chapterauthor{Erik Lindell}
+
+From this point on we only consider smooth varieties. This is because the definition of higher Chern classes only makes sense\footnote{Actually, it is possible to extend the definition of Chern classes to the case of singular varieties as well, but this is beyond the scope of this text} when the Chow groups form a ring, such as in Proposition ?. Before we move on to talk about these classes, we will talk about the \textit{splitting construction}, which will allow us to construct higher Chern classes from those on line bundles. 
+
+\begin{lemma}
+Let $X$ be a smooth variety and $E$ a vector bundle of rank $r$ on $X$. Then there exists a smooth variety $Y$, together with a morphism $\varphi:Y\to X$ with the following properties:\begin{enumerate}[(a)]
+    \item The pullback map $\varphi^*:A(X)\to A(Y)$ is injective.
+    \item There exist line bundles $L_1,\ldots, L_r$ and vector bundles $E_1,\ldots, E_r$, with $E_1=L_1$, such that
+     $$0\to L_{i+1}\to E_{i+1}\to E_i\to 0,\ \ \ i=1,\ldots, r-1,$$
+     is a short exact sequence and the pullback bundle $\varphi^*E$ on $Y$ is equal to $E_r$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+
+We start with (b), which is proven using induction on the rank of the vector bundle $E$. If $E$ is a line bundle, we can just set $Y=X$ and $\varphi=\operatorname{id}$, and we are done. Suppose therefore that the lemma is proven for vector bundles of rank $r-1$ and that $E$ is a vector bundle of rank $r$. Let $\mathbb{P}(E)$ denote the projectivization of $E$, i.e. the space obtained from $E$ by taking the projective space of each fiber. Let $\pi:\mathbb{P}(E)\to X$ denote the projection to the base. There is a tautological line bundle $S$ over $\mathbb{P}(E)$, which is a sub-bundle of $\pi^*E$. We denote the quotient bundle $\pi^*E/S$ by $Q$. This is a vector bundle of rank $r-1$, so by assumption there is a smooth variety $Y$ together with a map $\varphi:Y\to\mathbb{P}(E)$ such that $\varphi^*:A(\mathbb{P}(E))\to A(Y)$ is injective and such that there exist line bundles $L_1,\ldots, L_{r-1}$ and vector bundles $E_1,\ldots, E_{r-1}$, with $E_1=L_1$, $E_{r-1}=\varphi^* Q$ and short exact sequences
+$$0\to L_{i+1}\to E_{i+1}\to E_i\to 0,\ \ \ i=1,\ldots, r-2.$$
+By the functoriality of the pullback, $\varphi^*\pi^*E=(\pi\circ\varphi)^*E$ and since the pullback functor of vector bundles is exact, we have an extension
+$$0\longrightarrow\varphi^*S\longrightarrow\varphi^*\pi^*E\longrightarrow\varphi^*Q\longrightarrow 0.$$
+Thus we can set $L_r=\varphi^*S$ and $E_r=\varphi^*\pi^* E$, and we are done.
+
+We can see from this that to prove (b), it suffices to show that the pullback $A(X)\to A(\mathbb{P}(E))$ is injective, for any smooth and quasi-projective variety $X$. Proving this requires some more background that we have not covered, so the interested reader is referred to \cite[Chapter 3]{fulton:intersection-theory}.
+
+\end{proof}
+
+
+\section{Chern classes of vector bundles on smooth quasi-projective varieties}
+\chapterauthor{Erik Lindell}
+
+In this section we will extend the definition of the first Chern class to vector bundles of higher dimension, but restrict our study to the case where the base scheme is smooth and quasi-projective. Recall that in this situation, we can actually talk about the Chow \textit{ring} of our variety and we shall see that the Chern classes behave nicely with respect to this product structure.
+
+\begin{thm}
+Let $X$ be a smooth quasi-projective variety and let $E\to X$ be a vector bundle of rank $r$. Then there exists a unique class $c(E)=1+c_1(E)+c_2(E)+\cdots\in A(X)$, with $c_i(E)\in A^i(X)$, and with the following properties:\begin{enumerate}
+    \item If $E$ is a line bundle, then $c(E)=1+c_1(E)$, with $c_1$ defined as in Section (?).
+    \item (\textit{Whitney's formula}) If 
+    $$0\to E\to F\to G\to 0$$
+    is a short exact sequence of vector bundles on $X$, then
+    $$c(F)=c(E)c(G)\in A(X).$$
+    \item \textit{Functoriality} If $Y$ is another smooth, quasi-projective variety, and $\varphi:Y\to X$ is a morphism of smooth varieties, then 
+    $$\varphi^*(c(E))=c(\varphi^*(E)).$$
+    \item The class $c_i(E)=0$ for all $i>r$.
+    \item If $\tau_0,\ldots,\tau_{r-i}$ are global sections of $E$ and the locus $D$ where they are dependent has codimension $i$, then $c_i(E)=[D]\in A^i(X)$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+We will only prove uniqueness and existence for properties (1)-(4). Let $\varphi:Y\to X$ be a morphism of smooth varieties and $L_1,\ldots, L_r$ be line bundles, such as in the splitting construction. If propertes (1) and (2) are to hold, we must then have
+$$c(\varphi^*E)=\prod_{i=1}^r (1+c_1(L_i)),$$
+with $c_1$ as in Definition 1.7. By property (3), it follows that 
+$$\varphi^*(c(E))=\prod_{i=1}^r (1+c_1(L_i))$$
+and since the flat pullback $\varphi^*:A(X)\to A(Y)$ is injective, this determines $c(E)$. From this construction, it is clear that $c_i(E)=0$ for $i>r$ and also that $c(E)$ is the unique class with these properties.
+
+\end{proof}
+
+As we saw in the proof, the total Chern class of any vector bundle is completely determined by that of a bundle which can be constructed by successive extensions by line bundles. The Whitney formula implies that the Chern classes cannot determine whether these extensions are trivial or not, so it follows that if $L_1,\ldots, L_r$ are line bundles as in the proof, the Chern classes of the original bundle $E$ are determined by those of the direct sum bundle $L_1\oplus\cdots\oplus L_r$. This means that when considering relations among Chern classes, we may always assume that our vector bundles split into direct sums of line bundles. This is called the \textit{splitting principle}. Let us use this to prove some basic propositions about Chern classes. 
+
+\begin{example}
+\textit{(Dual bundles)}. If $L$ is a line bundle, then $$c_1(L^\vee)=-c_1(L),$$
+since $c_1$ is a group homomorphism. If $E=L_1\oplus\cdots \oplus L_r$, we get
+$$c_i(E^\vee)=\prod_{i=1}^r(1+c_1(L_i^\vee))=\prod_{i=1}^r(1-c_1(L_i)).$$
+Thus $c_i(E^\vee)=(-1)^ic_i(E)$. By the splitting principle, this relation holds for all vector bundles.
+\end{example}
+
+\begin{example}
+\textit{(Tensor products)}. Let $E$, $E'$ be vector bundles of rank $r$ and $s$, respectively, with $E=L_1\oplus\cdots\oplus L_r$ and $E'=L_1'\oplus\cdots\oplus L_s'$. Then
+$$E\otimes E'=\bigoplus_{\substack{1\le i\le r\\1\le j\le s}}L_i\otimes L_j'.$$
+Since $c_1$ is a group homomorphism, we have $c_1(L_i\otimes L_j')=c_1(L_i)+c_1(L_j')$, so
+$$c(E\otimes E')=\prod_{\substack{1\le i\le r\\1\le j\le s}} (1+c_1(L_i)+c_1(L_j')).$$
+In particular,
+$$c_1(E\otimes E')=rc_1(E)+sc_1(E').$$
+By the splitting principle, it once again follows that this formula holds for arbitrary vector bundles $E$ and $E'$.
+\end{example}
+
+\iffalse
 \section{The first Chern class} \label{sec:firstchern}
 \chapterauthor{Magnus Carlson}
 
@@ -4262,6 +4424,10 @@ so we see that
 h^0(X,\mathcal{O}_X(D)) = h^1(X,\mathcal{O}_X(D)) + deg D -g+1.
 \]
 \end{example}
+
+\fi
+
+
 
 \appendix
 
